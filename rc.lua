@@ -384,6 +384,14 @@ mytasklist.buttons = awful.util.table.join(
                                               client.focus = c
                                               c:raise()
                                           end),
+                     awful.button({ }, 2, function (c)
+                                              c.minimized = not c.minimized
+                                              -- After unminimize client gain focus
+                                              if not c.minimized then
+                                                  client.focus = c
+                                                  c:raise()
+                                              end
+                                          end),
                      awful.button({ }, 3, function ()
                                               if instance then
                                                   instance:hide()
