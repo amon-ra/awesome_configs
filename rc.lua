@@ -123,7 +123,7 @@ run_once("unclutter -idle 5")
 run_once("start-pulseaudio-x11")
 
 -- Launch composite manager
-run_once("compton &")
+run_once("compton --config ~/.config/compton/comptonrc &")
 
 -- Launch Conky
 run_once("conky &")
