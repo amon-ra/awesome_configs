@@ -221,6 +221,9 @@ run_once("setxkbmap pl &")
 run_once("xset -dpms &")
 run_once("xset s off &")
 
+-- Disable redshift on startup
+awful.util.spawn_with_shell("redshift -x")
+
 -- Hide cursor after 5 idle seconds
 run_once("unclutter -idle 5")
 
