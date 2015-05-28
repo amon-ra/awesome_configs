@@ -133,7 +133,10 @@ run_once("conky &")
 -- {{{ Various magic
 
 -- add signal for toggling wibox on top (needed for forcing maximized clients resize)
-client.add_signal("wibox_toggle")
+for s = 1, screen.count() do
+    -- Each screen has its own signal.
+    screen[s]:add_signal("wibox_toggle")
+end
 
 -- }}}
 
@@ -508,7 +511,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "b",
         function ()
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-            client.emit_signal("wibox_toggle")
+            screen[mouse.screen]:emit_signal("wibox_toggle")
         end, "Toggle panel"),
     
     awful.key({ }, "XF86AudioRaiseVolume", function ()
@@ -804,7 +807,10 @@ end)
 -- Connect change screen signal to a resize function
 client.connect_signal("property::screen", client_changed_screen)
 -- Connect toggle wibox signal to a resize function
-client.connect_signal("wibox_toggle", reload_maximized_windows)
+for s = 1, screen.count() do
+    -- Each screen has its own signal.
+    screen[s]:connect_signal("wibox_toggle", reload_maximized_windows)
+end
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
