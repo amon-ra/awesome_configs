@@ -151,8 +151,8 @@ end
 config_dir = (os.getenv("HOME").."/.config/awesome/")
 themes_dir = (config_dir .. "themes/orange_energy")
 
--- For toggle redshift
-redshifted = false
+-- For change screen temperature with redshift
+redshifted = 0
 
 -- Setup theme
 beautiful.init(themes_dir .. "/theme.lua")
@@ -523,12 +523,18 @@ globalkeys = awful.util.table.join(
     awful.util.spawn_with_shell("amixer set Master toggle") end),
     
     awful.key({ }, "XF86Launch3", function ()
-        if not redshifted then
+        if redshifted == 0 then
+            awful.util.spawn_with_shell("redshift -o -O 5500")
+            redshifted = 1
+        elseif redshifted == 1 then
             awful.util.spawn_with_shell("redshift -o -O 4500")
-            redshifted = true
+            redshifted = 2
+        elseif redshifted == 2 then
+            awful.util.spawn_with_shell("redshift -o -O 3500")
+            redshifted = 3
         else
             awful.util.spawn_with_shell("redshift -x")
-            redshifted = false
+            redshifted = 0
         end
     end),
     
