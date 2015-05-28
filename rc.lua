@@ -765,7 +765,7 @@ awful.rules.rules = {
                      size_hints_honor = false} },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
-    { rule = { class = "gimp" },
+    { rule = { class = "Qjackctl" },
       properties = { floating = true } },
     { rule = { class = "kcalc" },
       properties = { floating = true } },
