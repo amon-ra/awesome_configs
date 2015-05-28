@@ -107,29 +107,6 @@ end
 
 -- }}}
 
--- {{{ Autostart
-
--- Set Polish keyboard layout
-run_once("setxkbmap pl &")
-
--- Disable screen saver blanking
-run_once("xset -dpms &")
-run_once("xset s off &")
-
--- Hide cursor after 5 idle seconds
-run_once("unclutter -idle 5")
-
--- Start PulseAudio with the needed the X11 plugins
-run_once("start-pulseaudio-x11")
-
--- Launch composite manager
-run_once("compton --config ~/.config/compton/comptonrc &")
-
--- Launch Conky
-run_once("conky &")
-
--- }}}
-
 -- {{{ Various magic
 
 -- add signal for toggling wibox on top (needed for forcing maximized clients resize)
@@ -229,6 +206,29 @@ local layouts =
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
 }
+
+-- }}}
+
+-- {{{ Autostart
+
+-- Set Polish keyboard layout
+run_once("setxkbmap pl &")
+
+-- Disable screen saver blanking
+run_once("xset -dpms &")
+run_once("xset s off &")
+
+-- Hide cursor after 5 idle seconds
+run_once("unclutter -idle 5")
+
+-- Start PulseAudio with the needed the X11 plugins
+run_once("start-pulseaudio-x11")
+
+-- Launch composite manager
+run_once("compton --config " .. config_dir .. "/compton/comptonrc &")
+
+-- Launch Conky
+run_once("conky &")
 
 -- }}}
 
