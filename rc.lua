@@ -516,18 +516,18 @@ globalkeys = awful.util.table.join(
         end, "Toggle panel"),
     
     awful.key({ }, "XF86AudioRaiseVolume", function ()
-    awful.util.spawn("amixer set Master 5%+") end),
+    awful.util.spawn_with_shell("amixer set Master 5%+") end),
     awful.key({ }, "XF86AudioLowerVolume", function ()
-    awful.util.spawn("amixer set Master 5%-") end),
+    awful.util.spawn_with_shell("amixer set Master 5%-") end),
     awful.key({ }, "XF86AudioMute", function ()
-    awful.util.spawn("amixer set Master toggle") end),
+    awful.util.spawn_with_shell("amixer set Master toggle") end),
     
     awful.key({ }, "XF86Launch3", function ()
         if not redshifted then
-            awful.util.spawn("redshift -o -O 4500")
+            awful.util.spawn_with_shell("redshift -o -O 4500")
             redshifted = true
         else
-            awful.util.spawn("redshift -x")
+            awful.util.spawn_with_shell("redshift -x")
             redshifted = false
         end
     end),
