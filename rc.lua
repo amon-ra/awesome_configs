@@ -151,6 +151,9 @@ end
 config_dir = (os.getenv("HOME").."/.config/awesome/")
 themes_dir = (config_dir .. "themes/orange_energy")
 
+-- For toggle redshift
+redshifted = false
+
 -- Setup theme
 beautiful.init(themes_dir .. "/theme.lua")
 
@@ -518,6 +521,16 @@ globalkeys = awful.util.table.join(
     awful.util.spawn("amixer set Master 5%-") end),
     awful.key({ }, "XF86AudioMute", function ()
     awful.util.spawn("amixer set Master toggle") end),
+    
+    awful.key({ }, "XF86Launch3", function ()
+        if not redshifted then
+            awful.util.spawn("redshift -o -O 4500")
+            redshifted = true
+        else
+            awful.util.spawn("redshift -x")
+            redshifted = false
+        end
+    end),
     
     awful.key({ }, "XF86PowerOff", function ()
     run_once("oblogout") end),
