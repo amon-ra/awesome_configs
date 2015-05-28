@@ -494,8 +494,6 @@ root.buttons(awful.util.table.join(
 globalkeys = awful.util.table.join(
     keydoc.group("Global keys"),
     awful.key({ modkey,           }, "F1",     keydoc.display, "Show this help"),
-    awful.key({ modkey,           }, "Down",   awful.tag.viewprev, "View previous tag"),
-    awful.key({ modkey,           }, "Up",  awful.tag.viewnext, "View next tag"),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore, "Focus previously selected tag set"),
     
     awful.key({                   }, "Print",
@@ -526,22 +524,32 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey,           }, "Right",
         function ()
-            awful.client.focus.byidx( 1)
+            awful.client.focus.global_bydirection("right")
             if client.focus then client.focus:raise() end
-        end, "Focus next client"),
+        end, "Focus client on the right of active client"),
     awful.key({ modkey,           }, "Left",
         function ()
-            awful.client.focus.byidx(-1)
+            awful.client.focus.global_bydirection("left")
             if client.focus then client.focus:raise() end
-        end, "Focus previous client"),
+        end, "Focus client on the left of active client"),
+    awful.key({ modkey,           }, "Up",
+        function ()
+            awful.client.focus.global_bydirection("up")
+            if client.focus then client.focus:raise() end
+        end, "Focus client above active client"),
+    awful.key({ modkey,           }, "Down",
+        function ()
+            awful.client.focus.global_bydirection("down")
+            if client.focus then client.focus:raise() end
+        end, "Focus client below active client"),
         
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end, "Open main menu"),
         
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "Right", function () awful.client.swap.byidx(  1)    end, "Switch client with next client"),
-    awful.key({ modkey, "Shift"   }, "Left", function () awful.client.swap.byidx( -1)    end, "Switch client with previous client"),
-    awful.key({ modkey, "Control" }, "Up", function () awful.screen.focus_relative( 1) end, "Focus next screen"),
-    awful.key({ modkey, "Control" }, "Down", function () awful.screen.focus_relative(-1) end, "Focus previous screen"),
+    awful.key({ modkey, "Shift"   }, "Right", function () awful.client.swap.global_bydirection("right")    end, "Switch active client with client on the right"),
+    awful.key({ modkey, "Shift"   }, "Left", function () awful.client.swap.global_bydirection("left")    end, "Switch active client with client on the left"),
+    awful.key({ modkey, "Shift"   }, "Up", function () awful.client.swap.global_bydirection("up")    end, "Switch active client with client above"),
+    awful.key({ modkey, "Shift"   }, "Down", function () awful.client.swap.global_bydirection("down")    end, "Switch active client with client below"),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto, "Focus first urgent client"),
     awful.key({ modkey,           }, "Tab",
         function ()
