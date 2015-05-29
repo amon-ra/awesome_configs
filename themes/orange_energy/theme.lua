@@ -106,6 +106,6 @@ theme.music = pathToConfig .. "/icons/music.png"
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
-theme.useless_gap_width = 10
+theme.useless_gap_width = 8
 
 return theme
