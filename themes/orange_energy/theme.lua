@@ -81,6 +81,10 @@ theme.wallpaper = pathToConfig .. "/bg.png"
 
 -- You can use your own layout icons like this:
 theme.layout_floating  = pathToConfig .. "/layouts/floating.png"
+theme.layout_uselesstilebottom = pathToConfig  .. "/layouts/tilebottom.png"
+theme.layout_uselesstileleft   = pathToConfig .. "/layouts/tileleft.png"
+theme.layout_uselesstile = pathToConfig .. "/layouts/tile.png"
+theme.layout_uselesstiletop = pathToConfig .. "/layouts/tiletop.png"
 theme.layout_tilebottom = pathToConfig  .. "/layouts/tilebottom.png"
 theme.layout_tileleft   = pathToConfig .. "/layouts/tileleft.png"
 theme.layout_tile = pathToConfig .. "/layouts/tile.png"
@@ -101,5 +105,7 @@ theme.music = pathToConfig .. "/icons/music.png"
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
+
+theme.useless_gap_width = 10
 
 return theme

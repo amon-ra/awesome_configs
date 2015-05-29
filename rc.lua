@@ -2,7 +2,12 @@
 home_path  = os.getenv('HOME') .. '/'
 
 -- Various Lua magic
-local table = table
+local capi =
+{
+    mouse = mouse,
+    screen = screen,
+    client = client
+}
 
 -- Standard awesome library
 local gears = require("gears")
@@ -110,10 +115,7 @@ end
 -- {{{ Various magic
 
 -- add signal for toggling wibox on top (needed for forcing maximized clients resize)
-for s = 1, screen.count() do
-    -- Each screen has its own signal.
-    screen[s]:add_signal("wibox_toggle")
-end
+capi.screen.add_signal("wibox_toggle")
 
 -- }}}
 
@@ -204,10 +206,10 @@ modkey = "Mod4"
 local layouts =
 {
     awful.layout.suit.floating,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+    lain.layout.uselesstile,
+    lain.layout.uselesstile.left,
+    lain.layout.uselesstile.bottom,
+    lain.layout.uselesstile.top
 }
 
 -- }}}
