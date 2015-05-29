@@ -203,13 +203,10 @@ blank_bg:set_widget(blank_bg_image)
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts =
+awful.layout.layouts =
 {
     awful.layout.suit.floating,
-    lain.layout.uselesstile,
-    lain.layout.uselesstile.left,
-    lain.layout.uselesstile.bottom,
-    lain.layout.uselesstile.top
+    lain.layout.uselesstile
 }
 
 -- }}}
@@ -262,11 +259,11 @@ tags = {
            ' 5 '
            },
   layout = {
-        layouts[2],
-        layouts[2],
-        layouts[2],
-        layouts[2],
-        layouts[1]
+        awful.layout.layouts[2],
+        awful.layout.layouts[2],
+        awful.layout.layouts[2],
+        awful.layout.layouts[2],
+        awful.layout.layouts[1]
            }
 }
 for s = 1, screen.count() do
@@ -431,11 +428,11 @@ for s = 1, screen.count() do
     mylayoutbox[s] = wibox.widget.background()
     mylayoutbox[s]:set_bg(beautiful.bg_widget)
     mylayoutbox_widget[s] = awful.widget.layoutbox(s)
-    mylayoutbox_widget[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+    mylayoutbox[s]:buttons(awful.util.table.join(
+                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
+                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     mylayoutbox[s]:set_widget(mylayoutbox_widget[s])
                                
     -- Create a taglist widget
@@ -599,8 +596,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "#82",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "#86",     function () awful.tag.incncol(1)         end),
     awful.key({ modkey, "Control" }, "#82",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end, "Switch to next layout"),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end, "Switch to previous layout"),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(1) end, "Switch to next layout"),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1) end, "Switch to previous layout"),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore, "Restore client"),
 
