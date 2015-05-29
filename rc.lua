@@ -156,6 +156,9 @@ themes_dir = (config_dir .. "themes/orange_energy")
 -- For change screen temperature with redshift
 redshifted = 0
 
+-- For useless gap toggling
+useless_gap_width = beautiful.useless_gap_width
+
 -- Setup theme
 beautiful.init(themes_dir .. "/theme.lua")
 
@@ -516,6 +519,16 @@ globalkeys = awful.util.table.join(
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
             screen[mouse.screen]:emit_signal("wibox_toggle")
         end, "Toggle panel"),
+        
+    awful.key({ modkey,           }, "g",
+        function ()
+            if  beautiful.useless_gap_width > 0 then
+                beautiful.useless_gap_width = 0
+            else
+                beautiful.useless_gap_width = useless_gap_width
+            end
+            awful.layout.arrange(mouse.screen)
+        end, "Toggle gap"),
     
     awful.key({ }, "XF86AudioRaiseVolume", function ()
     awful.util.spawn_with_shell("amixer set Master 5%+") end),
