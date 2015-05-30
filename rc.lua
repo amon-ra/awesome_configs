@@ -308,12 +308,12 @@ table.insert(menubar.menu_gen.all_menu_dirs, '/usr/share/applications/kde4/')
 tdwidget_text = wibox.widget.textbox()
 tdwidget = wibox.widget.background()
 tdwidget:set_bg(beautiful.bg_widget)
-vicious.register(tdwidget_text, vicious.widgets.date, '<span font="Liberation Sans 10"> %b %d %H:%M </span>', 20)
+vicious.register(tdwidget_text, vicious.widgets.date, '<span font="Liberation Sans 10">%b %d %H:%M</span>', 20)
 tdwidget:set_widget(tdwidget_text)
 clockicon = wibox.widget.background()
 clockicon:set_bg(beautiful.bg_widget)
 clockicon_widget = wibox.widget.textbox()
-clockicon_widget:set_text('')
+clockicon_widget:set_text('   ')
 clockicon_widget:set_font('FontAwesome 10')
 clockicon:set_widget(clockicon_widget)
 
@@ -325,7 +325,7 @@ lain.widgets.calendar:attach(tdwidget, { font = "Liberation Mono", bg_focus  = b
 volume_text  = wibox.widget.textbox()
 volume = wibox.widget.background()
 volume:set_bg(beautiful.bg_widget)
-vicious.register(volume_text, vicious.widgets.volume, '<span font="Liberation Sans 10"> $1% </span>', 1, "Master")
+vicious.register(volume_text, vicious.widgets.volume, '<span font="Liberation Sans 10">$1%</span>', 1, "Master")
 volume:set_widget(volume_text)
 volumeicon = wibox.widget.background()
 volumeicon:set_bg(beautiful.bg_widget)
@@ -335,11 +335,11 @@ volumeicon_widget:set_font('FontAwesome 10')
 vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
         local paraone = tonumber(args[1])
         if args[2] == "♩" or paraone == 0 then
-                 volumeicon_widget:set_markup( '<span color="#CC0000"></span> ')
+                 volumeicon_widget:set_markup( '<span color="#CC0000">  </span> ')
         elseif paraone >= 50 and paraone <= 100 then
-                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '"></span> ')
+                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '">  </span> ')
         else
-                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '"></span> ')
+                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '">  </span> ')
         end
 end, 1, "Master")
 -- Buttons for volume widget
