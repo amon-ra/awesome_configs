@@ -95,17 +95,11 @@ theme.blank = pathToConfig .. "/icons/blank.png"
 theme.separator_left = pathToConfig .. "/icons/separator_left.png"
 theme.separator_right = pathToConfig .. "/icons/separator_right.png"
 
--- For the time and date clock icon
-theme.clock = pathToConfig .. "/icons/myclocknew.png"
-
--- For the volume icons
-theme.mute = pathToConfig .. "/icons/mute.png"
-theme.music = pathToConfig .. "/icons/music.png"
-
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
+-- Lain useless gap config
 theme.useless_gap_width = 8
 
 return theme

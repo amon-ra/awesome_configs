@@ -312,8 +312,9 @@ vicious.register(tdwidget_text, vicious.widgets.date, '<span font="Liberation Sa
 tdwidget:set_widget(tdwidget_text)
 clockicon = wibox.widget.background()
 clockicon:set_bg(beautiful.bg_widget)
-clockicon_widget = wibox.widget.imagebox()
-clockicon_widget:set_image(beautiful.clock)
+clockicon_widget = wibox.widget.textbox()
+clockicon_widget:set_text('')
+clockicon_widget:set_font('FontAwesome 10')
 clockicon:set_widget(clockicon_widget)
 
 -- Calendar
@@ -328,28 +329,27 @@ vicious.register(volume_text, vicious.widgets.volume, '<span font="Liberation Sa
 volume:set_widget(volume_text)
 volumeicon = wibox.widget.background()
 volumeicon:set_bg(beautiful.bg_widget)
-volumeicon_widget = wibox.widget.imagebox()
+volumeicon_widget = wibox.widget.textbox()
 volumeicon:set_widget(volumeicon_widget)
+volumeicon_widget:set_font('FontAwesome 10')
 vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
         local paraone = tonumber(args[1])
         if args[2] == "♩" or paraone == 0 then
-                volumeicon_widget:set_image(beautiful.mute)
-        elseif paraone >= 67 and paraone <= 100 then
-                volumeicon_widget:set_image(beautiful.music)
-        elseif paraone >= 33 and paraone <= 66 then
-                volumeicon_widget:set_image(beautiful.music)
+                 volumeicon_widget:set_markup( '<span color="#CC0000"></span> ')
+        elseif paraone >= 50 and paraone <= 100 then
+                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '"></span> ')
         else
-                volumeicon_widget:set_image(beautiful.music)
+                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '"></span> ')
         end
-end, 2, "Master")
+end, 1, "Master")
 -- Buttons for volume widget
 volumeicon:buttons(awful.util.table.join(
      awful.button({ }, 1,
      function() awful.util.spawn_with_shell("amixer set Master toggle") end),
      awful.button({ }, 4,
-     function() awful.util.spawn_with_shell("amixer set Master 2%+") end),
+     function() awful.util.spawn_with_shell("amixer set Master 5%+") end),
      awful.button({ }, 5,
-     function() awful.util.spawn_with_shell("amixer set Master 2%-") end)
+     function() awful.util.spawn_with_shell("amixer set Master 5%-") end)
             ))
      volume:buttons(volumeicon:buttons())
 
