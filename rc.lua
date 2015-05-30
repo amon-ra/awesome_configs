@@ -1,14 +1,6 @@
 -- Configure home path so you don't have too
 home_path  = os.getenv('HOME') .. '/'
 
--- Various Lua magic
-local capi =
-{
-    mouse = mouse,
-    screen = screen,
-    client = client
-}
-
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -109,13 +101,6 @@ local function client_changed_screen(c)
            c.fullscreen = true
        end
 end
-
--- }}}
-
--- {{{ Various magic
-
--- add signal for toggling wibox on top (needed for forcing maximized clients resize)
-capi.screen.add_signal("wibox_toggle")
 
 -- }}}
 
@@ -520,7 +505,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "b",
         function ()
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-            screen[mouse.screen]:emit_signal("wibox_toggle")
+            reload_maximized_windows(c)
         end, "Toggle panel"),
         
     awful.key({ modkey,           }, "g",
@@ -850,11 +835,6 @@ end)
    
 -- Connect change screen signal to a resize function
 client.connect_signal("property::screen", client_changed_screen)
--- Connect toggle wibox signal to a resize function
-for s = 1, screen.count() do
-    -- Each screen has its own signal.
-    screen[s]:connect_signal("wibox_toggle", reload_maximized_windows)
-end
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
