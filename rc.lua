@@ -209,7 +209,10 @@ modkey = "Mod4"
 awful.layout.layouts =
 {
     awful.layout.suit.floating,
-    lain.layout.uselesstile
+    lain.layout.uselesstile,
+    lain.layout.uselesstile.left,
+    lain.layout.uselesstile.top,
+    lain.layout.uselesstile.bottom
 }
 
 -- }}}
