@@ -335,13 +335,13 @@ volumeicon_widget:set_font('FontAwesome 15')
 vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
         local paraone = tonumber(args[1])
         if args[2] == "♩" or paraone == 0 then
-                volumeicon_widget:set_markup( '<span color="#BB4444"></span>')
-                volume:set_fg("#BB4444")
+                volumeicon_widget:set_markup('<span color="' .. beautiful.fg_urgent .. '"></span>')
+                volume:set_fg(beautiful.fg_urgent)
         elseif paraone >= 50 and paraone <= 100 then
-                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '"></span>')
+                volumeicon_widget:set_markup('<span color="' .. beautiful.fg_normal .. '"></span>')
                 volume:set_fg(beautiful.fg_normal)
         else
-                volumeicon_widget:set_markup( '<span color="' .. beautiful.fg_normal .. '"></span>')
+                volumeicon_widget:set_markup('<span color="' .. beautiful.fg_normal .. '"></span>')
                 volume:set_fg(beautiful.fg_normal)
         end
 end, 1, "Master")
