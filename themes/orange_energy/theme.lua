@@ -26,11 +26,11 @@ theme.border_marked             = theme.fg_focus
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_bg_normal = "#222222"
-theme.menu_bg_focus = "#363636"
-theme.menu_submenu_icon = pathToConfig .. "/submenu.png"
-theme.menu_height = 18
-theme.menu_width  = 180
+theme.menu_bg_normal            = "#222222"
+theme.menu_bg_focus             = "#363636"
+theme.menu_submenu_icon         = pathToConfig .. "/submenu.png"
+theme.menu_height               = 18
+theme.menu_width                = 180
 
 -- There are other variable sets
 -- overriding the default one when
@@ -41,6 +41,9 @@ theme.menu_width  = 180
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
+
+theme.titlebar_bg_normal              = "png:" .. pathToConfig .. "/titlebar/bg_normal.png"
+theme.titlebar_bg_focus               = "png:" .. pathToConfig .. "/titlebar/bg_focus.png"
 
 theme.awesome_icon = pathToConfig .. "/icons/awesome16.png"
 
@@ -76,6 +79,9 @@ theme.titlebar_maximized_button_normal_inactive = pathToConfig .. "/titlebar/max
 theme.titlebar_maximized_button_focus_inactive  = pathToConfig .. "/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active = pathToConfig .. "/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = pathToConfig .. "/titlebar/maximized_focus_active.png"
+
+theme.titlebar_minimize_button_normal_inactive = pathToConfig .. "/titlebar/minimize_normal_inactive.png"
+theme.titlebar_minimize_button_focus_inactive  = pathToConfig .. "/titlebar/minimize_focus_inactive.png"
 
 theme.wallpaper = pathToConfig .. "/bg.png"
 

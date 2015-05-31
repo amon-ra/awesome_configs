@@ -728,14 +728,14 @@ clientkeys = awful.util.table.join(
         -- Widgets that are aligned to the left
         local left_layout = wibox.layout.fixed.horizontal()
         left_layout:add(awful.titlebar.widget.iconwidget(c))
-        left_layout:buttons(buttons)
+        left_layout:add(awful.titlebar.widget.floatingbutton(c))
+        left_layout:add(awful.titlebar.widget.ontopbutton(c))
+        left_layout:add(awful.titlebar.widget.stickybutton(c))
  
         -- Widgets that are aligned to the right
         local right_layout = wibox.layout.fixed.horizontal()
-        right_layout:add(awful.titlebar.widget.floatingbutton(c))
+        right_layout:add(awful.titlebar.widget.minimizebutton(c))
         right_layout:add(awful.titlebar.widget.maximizedbutton(c))
-        right_layout:add(awful.titlebar.widget.stickybutton(c))
-        right_layout:add(awful.titlebar.widget.ontopbutton(c))
         right_layout:add(awful.titlebar.widget.closebutton(c))
  
         -- The title goes in the middle
