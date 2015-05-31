@@ -151,7 +151,7 @@ function display()
    for group, res in spairs(strings) do
       if #result > 0 then result = result .. "\n" end
       result = result ..
-	 '<span weight="bold" color="' .. beautiful.fg_urgent .. '">' ..
+	 '<span weight="bold" color="' .. beautiful.fg_important .. '">' ..
 	 group .. "</span>\n" .. res
    end
    nid = naughty.notify({ text = result,

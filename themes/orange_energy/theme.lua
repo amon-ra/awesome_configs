@@ -17,6 +17,7 @@ theme.naughty_bg                = "#222222"
 
 theme.fg_normal                 = "#B4B4B4"
 theme.fg_focus                  = "#FFFFFF"
+theme.fg_important              = "#FF6F0E"
 theme.fg_urgent                 = "#BB4444"
 theme.border_width              = 1
 theme.border_normal             = "#626262"
