@@ -20,8 +20,8 @@ theme.fg_focus                  = "#FFFFFF"
 theme.fg_urgent                 = "#BB4444"
 theme.border_width              = 1
 theme.border_normal             = "#626262"
-theme.border_focus              = theme.fg_urgent
-theme.border_marked             = theme.fg_focus
+theme.border_focus              = "#FF6F0E"
+theme.border_marked             = theme.fg_urgent
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
