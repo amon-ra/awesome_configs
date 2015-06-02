@@ -206,6 +206,7 @@ awful.layout.layouts =
 
 -- Set Polish keyboard layout
 run_once("setxkbmap pl &")
+os.setlocale(os.getenv("LANG"))
 
 -- Disable screen saver blanking
 run_once("xset -dpms &")
