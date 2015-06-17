@@ -67,8 +67,8 @@ local function key2str(key)
    if sym == '1' or sym == '2' or sym == '3' or sym == '4' or sym == '5' or sym == '6' or sym == '7' or sym == '8' or sym == '9' or sym == '0' then
       sym = "number"
    end
-   if sym == '=' or sym == '+' then
-       sym = "+/="
+   if sym == 'equal' or sym == 'plus' then
+       sym = "plus/equal"
    end
    return result .. sym
 end
