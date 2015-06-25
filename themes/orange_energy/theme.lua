@@ -7,7 +7,7 @@ theme = {}
 -- Setup Paths 
 pathToConfig = os.getenv("HOME") .. "/.config/awesome/themes/orange_energy"
 
-theme.font                      = "Liberation Sans 10"
+theme.font                      = "Liberation Sans 9"
 
 theme.bg_normal                 = "#2222226F"
 theme.bg_focus                  = "#3636366F"

@@ -315,7 +315,7 @@ clockicon = wibox.widget.background()
 clockicon:set_bg(beautiful.bg_widget)
 clockicon_widget = wibox.widget.textbox()
 clockicon_widget:set_text('')
-clockicon_widget:set_font('FontAwesome 15')
+clockicon_widget:set_font('FontAwesome 14')
 clockicon:set_widget(clockicon_widget)
 
 -- Calendar
@@ -332,7 +332,7 @@ volumeicon = wibox.widget.background()
 volumeicon:set_bg(beautiful.bg_widget)
 volumeicon_widget = wibox.widget.textbox()
 volumeicon:set_widget(volumeicon_widget)
-volumeicon_widget:set_font('FontAwesome 15')
+volumeicon_widget:set_font('FontAwesome 14')
 vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
         local paraone = tonumber(args[1])
         if args[2] == "♩" or paraone == 0 then
