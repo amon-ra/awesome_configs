@@ -322,6 +322,15 @@ clockicon:set_widget(clockicon_widget)
 lain.widgets.calendar:attach(clockicon, { font = "Ubuntu Mono", bg_focus  = beautiful.menu_bg_focus, font_size = 14, bg =  beautiful.naughty_bg })
 lain.widgets.calendar:attach(tdwidget, { font = "Ubuntu Mono", bg_focus  = beautiful.menu_bg_focus, font_size = 14, bg =  beautiful.naughty_bg })
 
+-- Tasks
+tasks = wibox.widget.background()
+tasks_icon = wibox.widget.textbox()
+tasks_icon:set_text('')
+tasks_icon:set_font('FontAwesome 13')
+tasks:set_bg(beautiful.bg_widget)
+tasks:set_widget(tasks_icon)
+lain.widgets.contrib.task:attach(tasks, {font = "Ubuntu Mono", bg = beautiful.naughty_bg, timeout = 0})
+
 -- Volume Widget
 volume_text = wibox.widget.textbox()
 volume = wibox.widget.background()
@@ -469,6 +478,11 @@ for s = 1, screen.count() do
     right_layout:add(blank_bg)
     right_layout:add(clockicon)
     right_layout:add(tdwidget)
+    right_layout:add(blank_bg)
+    right_layout:add(blank_bg)
+    right_layout:add(blank_bg)
+    right_layout:add(tasks)
+    right_layout:add(blank_bg)
     right_layout:add(blank_bg)
     right_layout:add(blank_bg)
     right_layout:add(blank_bg)
