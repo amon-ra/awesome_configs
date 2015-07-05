@@ -142,7 +142,7 @@ themes_dir = (config_dir .. "themes/orange_energy")
 redshifted = 0
 
 -- For useless gap toggling
-useless_gap_width = beautiful.useless_gap_width
+useless_gap = beautiful.useless_gap
 
 -- Setup theme
 beautiful.init(themes_dir .. "/theme.lua")
@@ -194,10 +194,10 @@ modkey = "Mod4"
 awful.layout.layouts =
 {
     awful.layout.suit.floating,
-    lain.layout.uselesstile,
-    lain.layout.uselesstile.left,
-    lain.layout.uselesstile.top,
-    lain.layout.uselesstile.bottom
+    awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.top,
+    awful.layout.suit.tile.bottom
 }
 
 -- }}}
@@ -533,10 +533,10 @@ globalkeys = awful.util.table.join(
         
     awful.key({ modkey,           }, "g",
         function ()
-            if  beautiful.useless_gap_width > 0 then
-                beautiful.useless_gap_width = 0
+            if  beautiful.useless_gap > 0 then
+                beautiful.useless_gap = 0
             else
-                beautiful.useless_gap_width = useless_gap_width
+                beautiful.useless_gap = useless_gap
             end
             awful.layout.arrange(mouse.screen)
         end, "Toggle gap"),

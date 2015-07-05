@@ -19,6 +19,7 @@ theme.fg_normal                 = "#B4B4B4"
 theme.fg_focus                  = "#FFFFFF"
 theme.fg_important              = "#FF6F0E"
 theme.fg_urgent                 = "#BB4444"
+theme.useless_gap               = 4
 theme.border_width              = 1
 theme.border_normal             = "#626262"
 theme.border_focus              = "#FF6F0E"
@@ -105,8 +106,5 @@ theme.separator_right = pathToConfig .. "/icons/separator_right.png"
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
-
--- Lain useless gap config
-theme.useless_gap_width = 8
 
 return theme
