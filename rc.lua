@@ -236,7 +236,12 @@ run_once("start-pulseaudio-x11")
 run_once("compton --config " .. config_dir .. "/compton/comptonrc &")
 
 -- Launch Conky
-run_once("conky &")
+
+if screen.count() == 2 then
+    run_once("conky --config=.conkyrc_dual &")
+else
+    run_once("conky &")
+end
 
 -- }}}
 
@@ -304,10 +309,7 @@ freedesktop.desktop.config.home = false -- to disabble home icon
 freedesktop.desktop.config.network = false -- to disabble network icon
 freedesktop.desktop.config.trash = false -- to disabble trash icon
 
-for s = 1, screen.count() do
-      freedesktop.desktop.add_desktop_icons({dir = '~/Pulpit/', screen = s, showlabels = true,
-      open_with = 'dolphin' })
-end
+freedesktop.desktop.add_desktop_icons({dir = '~/Pulpit/', screen = 1, showlabels = true, open_with = 'dolphin' })
 
 -- Add non-standard directories to menubar
 table.insert(menubar.menu_gen.all_menu_dirs, '/usr/share/applications/kde4/')
