@@ -102,6 +102,17 @@ local function client_changed_screen(c)
        end
 end
 
+-- Replacement for naughty.notify
+
+local orig = naughty.notify
+
+local function notify(args)
+    args.screen = args.screen or mouse.screen
+    return orig(args)
+end
+
+naughty.notify = notify		-- monkey patch
+
 -- }}}
 
 -- {{{ Error handling
