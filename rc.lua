@@ -31,13 +31,19 @@ local freedesktop = require('freedesktop')
 -- {{{ Local functions
 
 -- run only once!
-function run_once(cmd)
-  findme = cmd
-  firstspace = cmd:find(" ")
+function run_once(cmd, fake_cmd)
+  findme = fake_cmd or cmd
+  firstspace = findme:find(" ")
   if firstspace then
-     findme = cmd:sub(0, firstspace-1)
+     findme = findme:sub(0, firstspace-1)
   end
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+  pid = awful.util.pread("pgrep -u $USER -x " .. findme)
+  if pid == nil or pid == '' then
+     awful.util.spawn_with_shell(cmd)
+     return true
+  else
+     return false
+  end
 end
 
 -- reload geometry for maximized windows
@@ -560,6 +566,25 @@ globalkeys = awful.util.table.join(
     awful.util.spawn_with_shell("amixer set Master 5%-") end),
     awful.key({ }, "XF86AudioMute", function ()
     awful.util.spawn_with_shell("amixer set Master toggle") end),
+ 
+    -- Cmus control
+    awful.key({ }, "XF86AudioPlay", function ()
+        if run_once(terminal .. " -e cmus", "cmus") then
+            awful.util.spawn_with_shell("sleep 2; cmus-remote -u")
+        else
+            awful.util.spawn_with_shell("cmus-remote -u")
+        end
+    end),
+    awful.key({ }, "XF86AudioNext", function ()
+        awful.util.spawn_with_shell("cmus-remote -n")
+    end),
+    awful.key({ }, "XF86AudioPrev", function ()
+        awful.util.spawn_with_shell("cmus-remote -r")
+    end),
+    awful.key({ }, "XF86AudioStop", function ()
+        awful.util.spawn_with_shell("cmus-remote -s")
+        awful.util.spawn_with_shell("cmus-remote -C q")
+    end),
     
     awful.key({ }, "XF86Launch3", function ()
         if redshifted == 0 then
