@@ -644,6 +644,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end, "Spawn terminal emulator"),
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal .. " -e mc") end, "Spawn Midnight Commander"),
     awful.key({ modkey, "Control" }, "r", awesome.restart, "Restart awesome"),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit, "Quit awesome"),
     awful.key({ modkey,           }, "=",     function () awful.tag.incmwfact( 0.05)    end, "Increase master width factor by 5%"),
