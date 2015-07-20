@@ -25,6 +25,8 @@ theme.border_normal             = "#626262"
 theme.border_focus              = "#FF6F0E"
 theme.border_marked             = theme.fg_urgent
 
+theme.unfocused_opacity         = 0.75
+
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]

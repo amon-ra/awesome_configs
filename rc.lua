@@ -161,6 +161,9 @@ redshifted = 0
 -- For useless gap toggling
 useless_gap = beautiful.useless_gap
 
+-- Unfocused opacity
+unfocused_opacity = beautiful.unfocused_opacity
+
 -- Setup theme
 beautiful.init(themes_dir .. "/theme.lua")
 
@@ -550,15 +553,34 @@ globalkeys = awful.util.table.join(
             reload_maximized_windows(c)
         end, "Toggle panel"),
         
-    awful.key({ modkey,           }, "g",
+    awful.key({ modkey,           }, "c",
         function ()
+            
+            local focusable_clients = function (c)
+                return awful.rules.match(c, {focusable = true})
+            end
+            
             if  beautiful.useless_gap > 0 then
                 beautiful.useless_gap = 0
             else
                 beautiful.useless_gap = useless_gap
             end
-            awful.layout.arrange(mouse.screen)
-        end, "Toggle gap"),
+            
+            if  beautiful.unfocused_opacity == 1 then
+                beautiful.unfocused_opacity = unfocused_opacity
+            else
+                beautiful.unfocused_opacity = 1
+            end
+            
+            for c in awful.client.iterate(focusable_clients) do
+                c.opacity = beautiful.unfocused_opacity
+                client.focus.opacity = 1
+            end
+            
+            for s = 1, screen.count() do
+                awful.layout.arrange(s)
+            end
+        end, "Toggle useless beautification"),
     
     awful.key({ }, "XF86AudioRaiseVolume", function ()
     awful.util.spawn_with_shell("amixer set Master 5%+") end),
@@ -827,6 +849,8 @@ awful.rules.rules = {
                      size_hints_honor = false} },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
+    { rule = { class = "minetest" },
+      properties = { screen = 1 } },
     { rule = { class = "Qjackctl" },
       properties = { floating = true } },
     { rule = { class = "kcalc" },
@@ -898,7 +922,13 @@ end)
 -- Connect change screen signal to a resize function
 client.connect_signal("property::screen", client_changed_screen)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c)
+    c.border_color = beautiful.border_focus
+    c.opacity = 1
+    end)
+client.connect_signal("unfocus", function(c)
+    c.border_color = beautiful.border_normal
+    c.opacity = beautiful.unfocused_opacity
+    end)
 
 -- }}}
