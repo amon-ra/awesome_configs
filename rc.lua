@@ -849,8 +849,11 @@ awful.rules.rules = {
                      size_hints_honor = false} },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
-    { rule = { class = "minetest" },
-      properties = { screen = 1 } },
+    { rule = { class = "Minetest" },
+      properties = {
+      screen = 1,
+      fullscreen = true
+      } },
     { rule = { class = "Qjackctl" },
       properties = { floating = true } },
     { rule = { class = "kcalc" },
@@ -879,13 +882,12 @@ awful.rules.rules = {
     },
     { rule = { class = "Oblogout" },
       properties = {
-      floating = true,
       skip_taskbar = true,
       sticky = true,
+      screen = 1,
       fullscreen = true,
       ontop = true,
-      border_width = 0,
-      size_hints = {"program_position", "program_size"}
+      border_width = 0
     } }
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
