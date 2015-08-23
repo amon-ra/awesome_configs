@@ -232,9 +232,6 @@ os.setlocale(os.getenv("LANG"))
 run_once("xset -dpms &")
 run_once("xset s off &")
 
--- Disable redshift on startup
-awful.util.spawn_with_shell("redshift -x")
-
 -- Hide cursor after 5 idle seconds
 run_once("unclutter -idle 5")
 
@@ -608,22 +605,6 @@ globalkeys = awful.util.table.join(
         awful.util.spawn_with_shell("cmus-remote -C q")
     end),
     
-    awful.key({ }, "XF86Launch3", function ()
-        if redshifted == 0 then
-            awful.util.spawn_with_shell("redshift -o -O 5500")
-            redshifted = 1
-        elseif redshifted == 1 then
-            awful.util.spawn_with_shell("redshift -o -O 4500")
-            redshifted = 2
-        elseif redshifted == 2 then
-            awful.util.spawn_with_shell("redshift -o -O 3500")
-            redshifted = 3
-        else
-            awful.util.spawn_with_shell("redshift -x")
-            redshifted = 0
-        end
-    end),
-    
     awful.key({ }, "XF86PowerOff", function ()
     run_once("oblogout") end),
 
@@ -769,17 +750,14 @@ clientkeys = awful.util.table.join(
         end, "Minimize client"),
     awful.key({ modkey,           }, "m",
         function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-            c.maximized_vertical   = not c.maximized_vertical
+            if c.maximized_horizontal or c.maximized_vertical then
+                c.maximized_horizontal = false
+                c.maximized_vertical   = false
+            else
+                c.maximized_horizontal = true
+                c.maximized_vertical   = true
+            end
         end, "Maximize client"),
-    awful.key({ modkey, "Shift"   }, "m",
-        function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-        end, "Maximize client horizontally"),
-    awful.key({ modkey, "Control" }, "m",
-        function (c)
-            c.maximized_vertical   = not c.maximized_vertical
-        end, "Maximize client vertically"),
     awful.key({ modkey, "Shift" }, "t", function (c)
     -- toggle titlebar
     if (c:titlebar_top():geometry()['height'] > 0) then
@@ -873,7 +851,7 @@ awful.rules.rules = {
       border_width = 0,
       size_hints = {"program_position", "program_size"}
     } },
-    {   rule = { name = "LibreOffice 4.4", class = "Soffice", type = "normal"},
+    {   rule = { name = "LibreOffice 5", class = "Soffice", type = "normal"},
         properties = { 
             screen = screen.count()>1 and 2 or 1,
             fullscreen = true, 

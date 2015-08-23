@@ -51,7 +51,7 @@ function module.add_icon(settings)
 
     if (settings.label) then
         caption = wibox.widget.textbox()
-        caption:fit(labelsize.width, labelsize.height)
+        caption:fit(nil, labelsize.width, labelsize.height)
         caption:set_align("center")
         caption:set_ellipsize("middle")
         caption:set_text(settings.label)
