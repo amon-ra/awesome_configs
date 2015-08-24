@@ -546,8 +546,10 @@ globalkeys = awful.util.table.join(
     
     awful.key({ modkey,           }, "b",
         function ()
-            mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-            reload_maximized_windows(c)
+			for s = 1, screen.count() do
+				mywibox[s].visible = not mywibox[s].visible
+			end
+			reload_maximized_windows(c)
         end, "Toggle panel"),
         
     awful.key({ modkey,           }, "c",
