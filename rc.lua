@@ -315,7 +315,10 @@ freedesktop.desktop.config.home = false -- to disabble home icon
 freedesktop.desktop.config.network = false -- to disabble network icon
 freedesktop.desktop.config.trash = false -- to disabble trash icon
 
-freedesktop.desktop.add_desktop_icons({dir = '~/Pulpit/', screen = 1, showlabels = true, open_with = 'dolphin' })
+freedesktop.desktop.add_desktop_icons({dir = '~/Pulpit/', screen = 1, showlabels = true, open_with = 'thunar', start_position = 35, spacing_y = 18 })
+if screen.count() >= 2 then
+	freedesktop.desktop.add_desktop_icons({dir = '~/Pulpit/', screen = 2, showlabels = true, open_with = 'thunar', start_position = 42, spacing_y = 22 })
+end
 
 -- Add non-standard directories to menubar
 table.insert(menubar.menu_gen.all_menu_dirs, '/usr/share/applications/kde4/')
@@ -649,7 +652,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end, "Spawn terminal emulator"),
-    awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal .. " -e mc") end, "Spawn Midnight Commander"),
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn("thunar") end, "Spawn file manager"),
     awful.key({ modkey, "Control" }, "r", awesome.restart, "Restart awesome"),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit, "Quit awesome"),
     awful.key({ modkey,           }, "=",     function () awful.tag.incmwfact( 0.05)    end, "Increase master width factor by 5%"),
@@ -681,7 +684,7 @@ globalkeys = awful.util.table.join(
               end, "Run Lua code prompt"),
               
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end, "Show menubar")
+    awful.key({ modkey }, "p", function() menubar.show(mouse.screen) end, "Show menubar")
 )
 
 -- Bind all key numbers to tags.
@@ -838,12 +841,6 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "kcalc" },
       properties = { floating = true } },
-    { rule = { name = "Kopiowanie" },
-      properties = { floating = true } },
-    { rule = { name = "Rozpakowywanie pliku..." },
-      properties = { floating = true } },
-    { rule = { name = "Okno postępu" },
-      properties = { floating = true } },
     { rule = { class = "Conky" },
       properties = {
       floating = true,
@@ -910,7 +907,9 @@ client.connect_signal("focus", function(c)
     end)
 client.connect_signal("unfocus", function(c)
     c.border_color = beautiful.border_normal
-    c.opacity = beautiful.unfocused_opacity
+	if not c.fullscreen then
+		c.opacity = beautiful.unfocused_opacity
+	end
     end)
 
 -- }}}

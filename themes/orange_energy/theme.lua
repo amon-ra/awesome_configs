@@ -19,7 +19,7 @@ theme.fg_normal                 = "#B4B4B4"
 theme.fg_focus                  = "#FFFFFF"
 theme.fg_important              = "#FF6F0E"
 theme.fg_urgent                 = "#BB4444"
-theme.useless_gap               = 4
+theme.useless_gap               = 3
 theme.border_width              = 1
 theme.border_normal             = "#626262"
 theme.border_focus              = "#FF6F0E"
@@ -46,8 +46,8 @@ theme.menu_width                = 180
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
-theme.titlebar_bg_normal              = "png:" .. pathToConfig .. "/titlebar/bg_normal.png"
-theme.titlebar_bg_focus               = "png:" .. pathToConfig .. "/titlebar/bg_focus.png"
+theme.titlebar_bg_normal              = "#626262"
+theme.titlebar_bg_focus               = "#FF6F0E"
 
 theme.awesome_icon = pathToConfig .. "/icons/awesome16.png"
 

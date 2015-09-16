@@ -18,22 +18,21 @@ module.config = {
 local current_pos = {}
 local iconsize = { width = 48, height = 48 }
 local labelsize = { width = 120, height = 20 }
-local margin = { x = 20, y = 15 }
 
 function module.add_icon(settings)
 
     local s = settings.screen
 
     if not current_pos[s] then
-        current_pos[s] = { x = (capi.screen[s].geometry.x + iconsize.width/2 + margin.x), y = 40 }
+        current_pos[s] = { x = (capi.screen[s].geometry.x + iconsize.width/2 + settings.spacing_x), y = settings.start_position }
     end
 
     local totheight = (settings.icon and iconsize.height or 0) + (settings.label and labelsize.height or 0)
     if totheight == 0 then return end
 
-    if current_pos[s].y + totheight > capi.screen[s].geometry.height - 40 then
-        current_pos[s].x = current_pos[s].x + labelsize.width + margin.x
-        current_pos[s].y = 40
+    if current_pos[s].y + totheight + 5 > capi.screen[s].geometry.height then
+        current_pos[s].x = current_pos[s].x + labelsize.width + settings.spacing_x
+        current_pos[s].y = settings.start_position 
     end
 
     if (settings.icon) then
@@ -64,7 +63,7 @@ function module.add_icon(settings)
         caption_container:set_widget(caption)
     end
 
-    current_pos[s].y = current_pos[s].y + labelsize.height + margin.y
+    current_pos[s].y = current_pos[s].y + labelsize.height + settings.spacing_y
 end
 
 
@@ -117,6 +116,9 @@ function module.add_applications_icons(arg)
                 label = arg.showlabels and program.Name or nil,
                 icon = program.icon_path,
                 screen = arg.screen,
+				start_position = arg.start_position or 40,
+				spacing_x = arg.spacing_x  or 20,
+				spacing_y = arg.spacing_y  or 15,
                 click = function () awful.util.spawn(program.cmdline) end
             })
         end
@@ -142,6 +144,9 @@ function module.add_dirs_and_files_icons(arg)
                 label = arg.showlabels and file.filename or nil,
                 icon = file.icon,
                 screen = arg.screen,
+				start_position = arg.start_position or 33,
+				spacing_x = arg.spacing_x  or 20,
+				spacing_y = arg.spacing_y  or 15,
                 click = function () awful.util.spawn(arg.open_with .. ' "' .. file.path .. '"') end
             })
         end
