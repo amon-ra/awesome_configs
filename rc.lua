@@ -270,7 +270,7 @@ tags = {
 		awful.layout.layouts[2],
 		awful.layout.layouts[2],
 		awful.layout.layouts[1]
-	{
+	}
 }
 
 for s = 1, screen.count() do
@@ -647,7 +647,7 @@ globalkeys = awful.util.table.join(
 		end, "Focus previously selected client"),
 
 	-- Standard program
-	awful.key({modkey}, "Return"}, function () awful.util.spawn(terminal) end, "Spawn terminal emulator"),
+	awful.key({modkey}, "Return", function () awful.util.spawn(terminal) end, "Spawn terminal emulator"),
 	awful.key({modkey, "Shift"}, "Return", function () awful.util.spawn("thunar") end, "Spawn file manager"),
 	awful.key({modkey, "Control"}, "r", awesome.restart, "Restart awesome"),
 	awful.key({modkey, "Shift"}, "q", awesome.quit, "Quit awesome"),
