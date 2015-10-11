@@ -34,9 +34,9 @@ function run_once(cmd, fake_cmd)
 	if firstspace then
 		findme = findme:sub(0, firstspace-1)
 	end
-	pid = awful.util.pread("pgrep -u $USER -x " .. findme)
+	pid = awful.spawn.pread("pgrep -u $USER -x " .. findme)
 	if pid == nil or pid == '' then
-		awful.util.spawn_with_shell(cmd)
+		awful.spawn.with_shell(cmd)
 		return true
 	else
 		return false
@@ -48,15 +48,15 @@ local function reload_maximized_windows(c)
 	local maximized_clients = function (c)
 		return awful.rules.match(c, {maximized = true})
 	end
-	
+
 	local maximized_horizontal_clients = function (c)
 		return awful.rules.match(c, {maximized_horizontal = true})
 	end
-	
+
 	local maximized_vertical_clients = function (c)
 		return awful.rules.match(c, {maximized_vertical = true})
 	end
-	
+
 	local fullscreen_clients = function (c)
 		return awful.rules.match(c, {fullscreen = true})
 	end
@@ -65,17 +65,17 @@ local function reload_maximized_windows(c)
 		c.maximized = false
 		c.maximized = true
 	end
-	
+
 	for c in awful.client.iterate(maximized_vertical_clients) do
 		c.maximized_vertical = false
 		c.maximized_vertical = true
 	end
-	
+
 	for c in awful.client.iterate(maximized_horizontal_clients) do
 		c.maximized_horizontal = false
 		c.maximized_horizontal = true
 	end
-	
+
 	for c in awful.client.iterate(fullscreen_clients) do
 		c.fullscreen = false
 		c.fullscreen = true
@@ -217,12 +217,12 @@ awful.layout.layouts = {
 -- {{{Autostart
 
 -- Set Polish keyboard layout
-awful.util.spawn_with_shell("setxkbmap pl &")
+awful.spawn.with_shell("setxkbmap pl &")
 os.setlocale(os.getenv("LANG"))
 
 -- Disable screen saver blanking
-awful.util.spawn_with_shell("xset -dpms &")
-awful.util.spawn_with_shell("xset s off &")
+awful.spawn.with_shell("xset -dpms &")
+awful.spawn.with_shell("xset s off &")
 
 -- Hide cursor after 5 idle seconds
 run_once("unclutter -idle 5")
@@ -259,9 +259,9 @@ end
 tags = {
 	names = {
 		' 1 ',
-		' 2 ', 
-		' 3 ', 
-		' 4 ', 
+		' 2 ',
+		' 3 ',
+		' 4 ',
 		' 5 '
 	},
 	layout = {
@@ -286,7 +286,7 @@ end
 menu_items = freedesktop.menu.new()
 myawesomemenu = {
 	{"manual", terminal .. " -e man awesome", freedesktop.utils.lookup_icon({icon = 'help-about'})},
-	{"edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua", freedesktop.utils.lookup_icon({icon = 'preferences-desktop'})},
+	{"edit config", "atom " .. awful.util.getdir("config") .. "/rc.lua", freedesktop.utils.lookup_icon({icon = 'preferences-desktop'})},
 	{"restart", awesome.restart, freedesktop.utils.lookup_icon({icon = 'system-reboot'})},
 	{"quit", awesome.quit, freedesktop.utils.lookup_icon({icon = 'application-exit'})}
 }
@@ -370,12 +370,12 @@ vicious.register(volumeicon, vicious.widgets.volume,
 				volume:set_fg(beautiful.fg_normal)
 		end
 	end, 1, "Master")
-	
+
 -- Buttons for volume widget
 volumeicon:buttons(awful.util.table.join(
-	awful.button({}, 1, function() awful.util.spawn_with_shell("amixer set Master toggle") end),
-	awful.button({}, 4, function() awful.util.spawn_with_shell("amixer set Master 5%+") end),
-	awful.button({}, 5, function() awful.util.spawn_with_shell("amixer set Master 5%-") end))
+	awful.button({}, 1, function() awful.spawn.with_shell("amixer set Master toggle") end),
+	awful.button({}, 4, function() awful.spawn.with_shell("amixer set Master 5%+") end),
+	awful.button({}, 5, function() awful.spawn.with_shell("amixer set Master 5%-") end))
 )
 volume:buttons(volumeicon:buttons())
 
@@ -456,7 +456,7 @@ for s = 1, screen.count() do
 		awful.button({}, 5, function () awful.layout.inc(-1) end))
 		)
 	mylayoutbox[s]:set_widget(mylayoutbox_widget[s])
-							
+
 	-- Create a taglist widget
 	mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -532,17 +532,17 @@ globalkeys = awful.util.table.join(
 	keydoc.group("Global keys"),
 	awful.key({modkey}, "F1", keydoc.display, "Show this help"),
 	awful.key({modkey}, "Escape", awful.tag.history.restore, "Focus previously selected tag set"),
-	
+
 	awful.key({}, "Print",
 		function ()
-			awful.util.spawn("scrot") 
+			awful.spawn("scrot")
 	end),
-	
+
 	awful.key({modkey, "Shift"}, "Escape",
 		function ()
-			awful.util.spawn("xkill") 
+			awful.spawn("xkill")
 	end, "Choose client to kill"),
-	
+
 	awful.key({modkey}, "b",
 		function ()
 			for s = 1, screen.count() do
@@ -550,62 +550,62 @@ globalkeys = awful.util.table.join(
 			end
 			reload_maximized_windows(c)
 		end, "Toggle panel"),
-		
+
 	awful.key({modkey}, "c",
 		function ()
-			
+
 			local focusable_clients = function (c)
 				return awful.rules.match(c, {focusable = true})
 			end
-			
+
 			if beautiful.useless_gap > 0 then
 				beautiful.useless_gap = 0
 			else
 				beautiful.useless_gap = useless_gap
 			end
-			
+
 			if beautiful.unfocused_opacity == 1 then
 				beautiful.unfocused_opacity = unfocused_opacity
 			else
 				beautiful.unfocused_opacity = 1
 			end
-			
+
 			for c in awful.client.iterate(focusable_clients) do
 				c.opacity = beautiful.unfocused_opacity
 				client.focus.opacity = 1
 			end
-			
+
 			for s = 1, screen.count() do
 				awful.layout.arrange(s)
 			end
 		end, "Toggle useless beautification"),
-	
+
 	awful.key({}, "XF86AudioRaiseVolume", function ()
-	awful.util.spawn_with_shell("amixer set Master 5%+") end),
+	awful.spawn.with_shell("amixer set Master 5%+") end),
 	awful.key({}, "XF86AudioLowerVolume", function ()
-	awful.util.spawn_with_shell("amixer set Master 5%-") end),
+	awful.spawn.with_shell("amixer set Master 5%-") end),
 	awful.key({}, "XF86AudioMute", function ()
-	awful.util.spawn_with_shell("amixer set Master toggle") end),
+	awful.spawn.with_shell("amixer set Master toggle") end),
 
 	-- Cmus control
 	awful.key({}, "XF86AudioPlay", function ()
 		if run_once(terminal .. " -e cmus", "cmus") then
-			awful.util.spawn_with_shell("sleep 2; cmus-remote -u")
+			awful.spawn.with_shell("sleep 2; cmus-remote -u")
 		else
-			awful.util.spawn_with_shell("cmus-remote -u")
+			awful.spawn.with_shell("cmus-remote -u")
 		end
 	end),
 	awful.key({}, "XF86AudioNext", function ()
-		awful.util.spawn_with_shell("cmus-remote -n")
+		awful.spawn.with_shell("cmus-remote -n")
 	end),
 	awful.key({}, "XF86AudioPrev", function ()
-		awful.util.spawn_with_shell("cmus-remote -r")
+		awful.spawn.with_shell("cmus-remote -r")
 	end),
 	awful.key({}, "XF86AudioStop", function ()
-		awful.util.spawn_with_shell("cmus-remote -s")
-		awful.util.spawn_with_shell("cmus-remote -C q")
+		awful.spawn.with_shell("cmus-remote -s")
+		awful.spawn.with_shell("cmus-remote -C q")
 	end),
-	
+
 	awful.key({}, "XF86PowerOff", function ()
 	run_once("oblogout") end),
 
@@ -629,9 +629,9 @@ globalkeys = awful.util.table.join(
 			awful.client.focus.global_bydirection("down")
 			if client.focus then client.focus:raise() end
 		end, "Focus client below active client"),
-		
+
 	awful.key({modkey}, "w", function () mymainmenu:show() end, "Open main menu"),
-		
+
 	-- Layout manipulation
 	awful.key({modkey, "Shift" }, "Right", function () awful.client.swap.global_bydirection("right") end, "Switch active client with client on the right"),
 	awful.key({modkey, "Shift" }, "Left", function () awful.client.swap.global_bydirection("left") end, "Switch active client with client on the left"),
@@ -647,8 +647,8 @@ globalkeys = awful.util.table.join(
 		end, "Focus previously selected client"),
 
 	-- Standard program
-	awful.key({modkey}, "Return", function () awful.util.spawn(terminal) end, "Spawn terminal emulator"),
-	awful.key({modkey, "Shift"}, "Return", function () awful.util.spawn("thunar") end, "Spawn file manager"),
+	awful.key({modkey}, "Return", function () awful.spawn(terminal) end, "Spawn terminal emulator"),
+	awful.key({modkey, "Shift"}, "Return", function () awful.spawn("thunar") end, "Spawn file manager"),
 	awful.key({modkey, "Control"}, "r", awesome.restart, "Restart awesome"),
 	awful.key({modkey, "Shift"}, "q", awesome.quit, "Quit awesome"),
 	awful.key({modkey}, "=", function () awful.tag.incmwfact( 0.05) end, "Increase master width factor by 5%"),
@@ -678,7 +678,7 @@ globalkeys = awful.util.table.join(
 				awful.util.eval, nil,
 				awful.util.getdir("cache") .. "/history_eval")
 			end, "Run Lua code prompt"),
-			
+
 	-- Menubar
 	awful.key({modkey}, "p", function() menubar.show(mouse.screen) end, "Show menubar")
 )
@@ -809,7 +809,7 @@ clientkeys = awful.util.table.join(
 	end
 end, "Toggle client titlebar")
 )
-	
+
 -- Set keys
 root.keys(globalkeys)
 
@@ -828,22 +828,22 @@ awful.rules.rules = {
 		keys = clientkeys,
 		buttons = clientbuttons,
 		size_hints_honor = false}},
-		
+
 	{rule = {class = "pinentry"},
 	properties = {floating = true}},
-	
+
 	{rule = {class = "Minetest"},
 	properties = {
 	screen = 1,
 	fullscreen = true
 	}},
-	
+
 	{rule = {class = "Qjackctl"},
 	properties = {floating = true}},
-	
+
 	{rule = {class = "kcalc"},
 	properties = {floating = true}},
-	
+
 	{rule = {class = "Conky"},
 	properties = {
 	floating = true,
@@ -853,15 +853,15 @@ awful.rules.rules = {
 	border_width = 0,
 	size_hints = {"program_position", "program_size"}
 	}},
-	
+
 	{ rule = {name = "LibreOffice 5", class = "Soffice", type = "normal"},
 		properties = {
 			screen = screen.count()>1 and 2 or 1,
-			fullscreen = true, 
+			fullscreen = true,
 			skip_taskbar = true,
 			focusable = true}
 	},
-	
+
 	{rule = {class = "Oblogout"},
 	properties = {
 	skip_taskbar = true,
