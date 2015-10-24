@@ -397,28 +397,28 @@ vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
 
 -- Buttons for volume widget
 volumeicon:buttons(awful.util.table.join(
-    awful.button({}, 1, function() awful.spawn.with_shell("amixer set Master toggle") end),
-    awful.button({}, 4, function() awful.spawn.with_shell("amixer set Master 5%+") end),
-    awful.button({}, 5, function() awful.spawn.with_shell("amixer set Master 5%-") end))
+    awful.button({ }, 1, function() awful.spawn.with_shell("amixer set Master toggle") end),
+    awful.button({ }, 4, function() awful.spawn.with_shell("amixer set Master 5%+") end),
+    awful.button({ }, 5, function() awful.spawn.with_shell("amixer set Master 5%-") end))
 )
 volume:buttons(volumeicon:buttons())
 
 -- Create a wibox for each screen and add it
-mywibox = {}
-mypromptbox = {}
-mylayoutbox_widget = {}
-mylayoutbox = {}
+mywibox = { }
+mypromptbox = { }
+mylayoutbox_widget = { }
+mylayoutbox = { }
 
-mytaglist = {}
+mytaglist = { }
 mytaglist.buttons = awful.util.table.join(
     awful.button({ }, 1, awful.tag.viewonly),
     awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
     awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
 )
 
-mytasklist = {}
+mytasklist = { }
 mytasklist.buttons = awful.util.table.join(
-    awful.button({}, 1, function (c)
+    awful.button({ }, 1, function (c)
         -- Without this, the following :isvisible() makes no sense
         c.minimized = false
 
@@ -430,7 +430,7 @@ mytasklist.buttons = awful.util.table.join(
         c:raise()
     end),
 
-    awful.button({}, 2, function (c)
+    awful.button({ }, 2, function (c)
         c.minimized = not c.minimized
         -- After unminimize client gain focus
         if not c.minimized then
@@ -439,7 +439,7 @@ mytasklist.buttons = awful.util.table.join(
         end
     end),
 
-    awful.button({}, 3, function ()
+    awful.button({ }, 3, function ()
         if instance then
             instance:hide()
             instance = nil
@@ -448,21 +448,39 @@ mytasklist.buttons = awful.util.table.join(
         end
     end),
 
-    awful.button({}, 4, function ()
+    awful.button({ }, 4, function ()
         awful.client.focus.byidx(1)
         if client.focus then
             client.focus:raise()
         end
     end),
 
-    awful.button({}, 5, function ()
+    awful.button({ }, 5, function ()
         awful.client.focus.byidx(-1)
         if client.focus then
             client.focus:raise()
         end
     end),
 
-    awful.button({}, 10, function (c) c:kill() end)
+    awful.button({ }, 8, function()
+        local curidx = awful.tag.getidx()
+        if curidx == 1 then
+            awful.client.movetotag(tags[client.focus.screen][5])
+        else
+            awful.client.movetotag(tags[client.focus.screen][curidx - 1])
+        end
+    end),
+
+    awful.button({ }, 9, function()
+        local curidx = awful.tag.getidx()
+        if curidx == 5 then
+            awful.client.movetotag(tags[client.focus.screen][1])
+        else
+            awful.client.movetotag(tags[client.focus.screen][curidx + 1])
+        end
+    end),
+
+    awful.button({ }, 10, function (c) c:kill() end)
 )
 
 for s = 1, screen.count() do
@@ -478,7 +496,7 @@ for s = 1, screen.count() do
         awful.button({ }, 1, function () awful.layout.inc( 1) end),
         awful.button({ }, 3, function () awful.layout.inc(-1) end),
         awful.button({ }, 4, function () awful.layout.inc( 1) end),
-        awful.button({}, 5, function () awful.layout.inc(-1) end))
+        awful.button({ }, 5, function () awful.layout.inc(-1) end))
     )
     mylayoutbox[s]:set_widget(mylayoutbox_widget[s])
 
@@ -548,7 +566,7 @@ end
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({}, 5, awful.tag.viewprev))
+    awful.button({ }, 5, awful.tag.viewprev))
 )
 
 -- }}}
@@ -563,7 +581,7 @@ globalkeys = awful.util.table.join(
     awful.key({modkey}, "F1", keydoc.display, "Show this help"),
     awful.key({modkey}, "Escape", awful.tag.history.restore, "Focus previously selected tag set"),
 
-    awful.key({}, "Print", function ()
+    awful.key({ }, "Print", function ()
         awful.spawn("scrot")
     end),
 
@@ -605,17 +623,17 @@ globalkeys = awful.util.table.join(
         end
     end, "Toggle useless beautification"),
 
-    awful.key({}, "XF86AudioRaiseVolume", function ()
+    awful.key({ }, "XF86AudioRaiseVolume", function ()
     awful.spawn.with_shell("amixer set Master 5%+") end),
 
-    awful.key({}, "XF86AudioLowerVolume", function ()
+    awful.key({ }, "XF86AudioLowerVolume", function ()
     awful.spawn.with_shell("amixer set Master 5%-") end),
 
-    awful.key({}, "XF86AudioMute", function ()
+    awful.key({ }, "XF86AudioMute", function ()
     awful.spawn.with_shell("amixer set Master toggle") end),
 
     -- Cmus control
-    awful.key({}, "XF86AudioPlay", function ()
+    awful.key({ }, "XF86AudioPlay", function ()
         if run_once(terminal .. " -e cmus", "cmus") then
             awful.spawn.with_shell("sleep 2; cmus-remote -u")
         else
@@ -623,20 +641,20 @@ globalkeys = awful.util.table.join(
         end
     end),
 
-    awful.key({}, "XF86AudioNext", function ()
+    awful.key({ }, "XF86AudioNext", function ()
         awful.spawn.with_shell("cmus-remote -n")
     end),
 
-    awful.key({}, "XF86AudioPrev", function ()
+    awful.key({ }, "XF86AudioPrev", function ()
         awful.spawn.with_shell("cmus-remote -r")
     end),
 
-    awful.key({}, "XF86AudioStop", function ()
+    awful.key({ }, "XF86AudioStop", function ()
         awful.spawn.with_shell("cmus-remote -s")
         awful.spawn.with_shell("cmus-remote -C q")
     end),
 
-    awful.key({}, "XF86PowerOff", function () run_once("oblogout") end),
+    awful.key({ }, "XF86PowerOff", function () run_once("oblogout") end),
 
     awful.key({modkey}, "Right", function ()
         awful.client.focus.global_bydirection("right")
@@ -683,14 +701,14 @@ globalkeys = awful.util.table.join(
     awful.key({modkey, "Shift"}, "Return", function () awful.spawn("thunar") end, "Spawn file manager"),
     awful.key({modkey, "Control"}, "r", awesome.restart, "Restart awesome"),
     awful.key({modkey, "Shift"}, "q", awesome.quit, "Quit awesome"),
+
+    -- Layout manipulation
     awful.key({modkey}, "=", function () awful.tag.incmwfact( 0.05) end, "Increase master width factor by 5%"),
     awful.key({modkey}, "-", function () awful.tag.incmwfact(-0.05) end, "Decrease master width factor by 5%"),
     awful.key({modkey, "Shift"}, "=", function () awful.tag.incnmaster(1, nil, true) end, "Increase number of master windows"),
     awful.key({modkey, "Shift"}, "-", function () awful.tag.incnmaster(-1, nil, true) end, "Decrease number of master windows"),
     awful.key({modkey, "Control"}, "=", function () awful.tag.incncol(1, nil, true) end, "Increase number of columns for non-master windows"),
     awful.key({modkey, "Control"}, "-", function () awful.tag.incncol(-1, nil, true) end, "Decrease number of columns for non-master windows"),
-
-    -- Layout manipulation
     awful.key({modkey}, "#86", function () awful.tag.incmwfact(0.05) end),
     awful.key({modkey}, "#82", function () awful.tag.incmwfact(-0.05) end),
     awful.key({modkey, "Shift"}, "#86", function () awful.tag.incnmaster(1, nil, true) end),
@@ -758,14 +776,26 @@ end
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-
-    awful.button({ modkey }, 1, awful.mouse.client.move),
-
+    awful.button({modkey}, 1, awful.mouse.client.move),
     awful.button({modkey}, 3, awful.mouse.client.resize),
 
-    awful.button({modkey}, 8, function() awful.client.swap.byidx(1) end),
+    awful.button({modkey}, 8, function()
+        local curidx = awful.tag.getidx()
+        if curidx == 1 then
+            awful.client.movetotag(tags[client.focus.screen][5])
+        else
+            awful.client.movetotag(tags[client.focus.screen][curidx - 1])
+        end
+    end),
 
-    awful.button({modkey}, 9, function() awful.client.swap.byidx(-1) end),
+    awful.button({modkey}, 9, function()
+        local curidx = awful.tag.getidx()
+        if curidx == 5 then
+            awful.client.movetotag(tags[client.focus.screen][1])
+        else
+            awful.client.movetotag(tags[client.focus.screen][curidx + 1])
+        end
+    end),
 
     awful.button({modkey}, 10, function (c) c:kill() end)
 )
@@ -802,13 +832,13 @@ clientkeys = awful.util.table.join(
         else
             -- buttons for the titlebar
             local buttons = awful.util.table.join(
-                awful.button({}, 1, function()
+                awful.button({ }, 1, function()
                     client.focus = c
                     c:raise()
                     awful.mouse.client.move(c)
                 end),
 
-                awful.button({}, 3, function()
+                awful.button({ }, 3, function()
                     client.focus = c
                     c:raise()
                     awful.mouse.client.resize(c)
@@ -857,7 +887,7 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     {
-        rule = {},
+        rule = { },
         properties = {
             border_width = beautiful.border_width,
             border_color = beautiful.border_normal,
