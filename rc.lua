@@ -180,7 +180,7 @@ naughty.config.defaults.border_color = beautiful.border_normal
 naughty.config.defaults.border_width = beautiful.border_width
 
 -- This is used later as the default terminal, browser and editor to run.
-terminal = "urxvt"
+terminal = "terminology"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 browser = "chromium"
