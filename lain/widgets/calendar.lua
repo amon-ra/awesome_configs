@@ -116,9 +116,9 @@ function calendar:attach(widget, args)
     calendar.font        = args.font or beautiful.font:gsub(" %d.*", "")
     calendar.font_size   = tonumber(args.font_size) or 11
     calendar.fg          = args.fg or beautiful.fg_normal or "#BBBBBB"
-	calendar.fg_focus    = args.fg_focus or beautiful.fg_focus or "#FFFFFF"
+    calendar.fg_focus    = args.fg_focus or beautiful.fg_focus or "#FFFFFF"
     calendar.bg          = args.bg or beautiful.bg_normal or "#000000"
-	calendar.bg_focus    = args.bg_focus or beautiful.bg_focus or "#222222"
+    calendar.bg_focus    = args.bg_focus or beautiful.bg_focus or "#222222"
     calendar.position    = args.position or "top_right"
     calendar.scr_pos     = args.scr_pos or 1
     calendar.followmouse = args.followmouse or false

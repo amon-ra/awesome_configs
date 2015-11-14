@@ -374,7 +374,7 @@ tasks_icon:set_text('')
 tasks_icon:set_font('FontAwesome 13')
 tasks:set_bg(beautiful.bg_widget)
 tasks:set_widget(tasks_icon)
-lain.widgets.contrib.task:attach(tasks, {font = "Ubuntu Mono", bg = beautiful.naughty_bg, timeout = 0})
+lain.widgets.contrib.task:attach(tasks, {font = "Ubuntu Mono", bg = beautiful.naughty_bg, timeout = 0, followmouse = true})
 
 -- Volume Widget
 volume_text = wibox.widget.textbox()

@@ -1,9 +1,9 @@
 
 --[[
-                                                  
-     Licensed under GNU General Public License v2 
-      * (c) 2013, Jan Xie                         
-                                                  
+
+     Licensed under GNU General Public License v2
+      * (c) 2013, Jan Xie
+
 --]]
 
 local icons_dir    = require("lain.helpers").icons_dir
@@ -43,16 +43,34 @@ function task:show(scr_pos)
         local scrp = scr_pos or task.scr_pos
     end
 
-    f = io.popen('task')
-    c_text = "<span font='"
-             .. task.font .. " "
-             .. task.font_size .. "'>"
-             .. f:read("*all"):gsub("\n*$", "")
-             .. "</span>"
-    f:close()
+    f = io.popen('task list')
+    local line = f:read("*line")
+    if line ~= nil then
+        c_text = "<span font='"
+                 .. task.font .. " "
+                 .. task.font_size .. "' "
+                 .. "foreground='"
+                 .. beautiful.fg_focus .. "'>"
+                 .. f:read("*line"):gsub("\n*$", "")
+                 .. "\n</span>"
+        f:read("*line")
+        c_text = c_text .. "<span font='"
+                 .. task.font .. " "
+                 .. task.font_size .. "'>"
+                 .. f:read("*all"):gsub("\n*$", "")
+                 .. "</span>"
+        f:close()
+    else
+        c_text = "<span font='"
+                 .. task.font .. " "
+                 .. task.font_size .. "' "
+                 .. "foreground='"
+                 .. beautiful.fg_focus .. "'>"
+                 .. "No tasks"
+                 .. "\n</span>"
+    end
 
-    task_notification = naughty.notify({ title = "[task next]",
-                                         text = c_text,
+    task_notification = naughty.notify({ text = c_text,
                                          icon = task.notify_icon,
                                          position = task.position,
                                          fg = task.fg,
@@ -125,7 +143,7 @@ function task:attach(widget, args)
     local args       = args or {}
 
     task.font_size   = tonumber(args.font_size) or 12
-    task.font        = beautiful.font:sub(beautiful.font:find(""),
+    task.font        = args.font or beautiful.font:sub(beautiful.font:find(""),
                        beautiful.font:find(" "))
     task.fg          = args.fg or beautiful.fg_normal or "#FFFFFF"
     task.bg          = args.bg or beautiful.bg_normal or "#FFFFFF"
