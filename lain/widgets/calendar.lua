@@ -1,9 +1,9 @@
 
 --[[
-                                                  
-     Licensed under GNU General Public License v2 
-      * (c) 2013, Luke Bonham                     
-                                                  
+
+     Licensed under GNU General Public License v2
+      * (c) 2013, Luke Bonham
+
 --]]
 
 local icons_dir    = require("lain.helpers").icons_dir
@@ -51,9 +51,9 @@ function calendar:show(t_out, inc_offset, scr)
         -- bg and fg inverted to highlight today
         f = io.popen( init_t .. today ..
                       ')($| )/\\1<b><span foreground=\\"'
-                      .. calendar.bg ..
+                      .. calendar.fg_focus ..
                       '\\" background=\\"'
-                      .. calendar.fg ..
+                      .. calendar.bg_focus ..
                       '\\">\\2<\\/span><\\/b>\\3/"' )
 
     else -- no current month showing, no day to highlight
@@ -115,8 +115,10 @@ function calendar:attach(widget, args)
     calendar.icons       = args.icons or icons_dir .. "cal/white/"
     calendar.font        = args.font or beautiful.font:gsub(" %d.*", "")
     calendar.font_size   = tonumber(args.font_size) or 11
-    calendar.fg          = args.fg or beautiful.fg_normal or "#FFFFFF"
+    calendar.fg          = args.fg or beautiful.fg_normal or "#BBBBBB"
+	calendar.fg_focus    = args.fg_focus or beautiful.fg_focus or "#FFFFFF"
     calendar.bg          = args.bg or beautiful.bg_normal or "#000000"
+	calendar.bg_focus    = args.bg_focus or beautiful.bg_focus or "#222222"
     calendar.position    = args.position or "top_right"
     calendar.scr_pos     = args.scr_pos or 1
     calendar.followmouse = args.followmouse or false

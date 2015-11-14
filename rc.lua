@@ -364,8 +364,8 @@ clockicon_widget:set_font('FontAwesome 13')
 clockicon:set_widget(clockicon_widget)
 
 -- Calendar
-lain.widgets.calendar:attach(clockicon, {font = "Ubuntu Mono", bg_focus = beautiful.menu_bg_focus, font_size = 14, bg = beautiful.naughty_bg})
-lain.widgets.calendar:attach(tdwidget, {font = "Ubuntu Mono", bg_focus = beautiful.menu_bg_focus, font_size = 14, bg = beautiful.naughty_bg})
+lain.widgets.calendar:attach(clockicon, {font = "Ubuntu Mono", bg_focus = beautiful.menu_bg_focus, font_size = 14, bg = beautiful.naughty_bg, followmouse = true})
+lain.widgets.calendar:attach(tdwidget, {font = "Ubuntu Mono", bg_focus = beautiful.menu_bg_focus, font_size = 14, bg = beautiful.naughty_bg, followmouse = true})
 
 -- Tasks
 tasks = wibox.widget.background()
